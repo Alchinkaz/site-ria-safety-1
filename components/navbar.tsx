@@ -382,98 +382,98 @@ export default function Navbar() {
                     />
                   </div>
                 </button>
+              </div>
 
-                <div
-                  className="relative"
-                  ref={catalogButtonRef}
-                  onMouseEnter={handleCatalogMouseEnter}
-                  onMouseLeave={handleCatalogMouseLeave}
+              <div
+                className="relative"
+                ref={catalogButtonRef}
+                onMouseEnter={handleCatalogMouseEnter}
+                onMouseLeave={handleCatalogMouseLeave}
+              >
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  className="text-white bg-[#ED1B23] hover:bg-[#d91621] items-center space-x-2"
                 >
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    className="text-white bg-[#ED1B23] hover:bg-[#d91621] items-center space-x-2"
+                  <LayoutGridIcon className="h-4 w-4" />
+                  <span>Каталог</span>
+                </Button>
+
+                {catalogDropdownOpen && (
+                  <div
+                    className="fixed mt-1 bg-white border border-gray-200 rounded-lg shadow-2xl z-50"
+                    style={{
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "100%",
+                      maxWidth: "1200px",
+                      top: showTopBar ? "106px" : "66px",
+                    }}
+                    onMouseEnter={handleCatalogMouseEnter}
+                    onMouseLeave={handleCatalogMouseLeave}
                   >
-                    <LayoutGridIcon className="h-4 w-4" />
-                    <span>Каталог</span>
-                  </Button>
-
-                  {catalogDropdownOpen && (
-                    <div
-                      className="fixed mt-1 bg-white border border-gray-200 rounded-lg shadow-2xl z-50"
-                      style={{
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        width: "100%",
-                        maxWidth: "1200px",
-                        top: showTopBar ? "106px" : "66px",
-                      }}
-                      onMouseEnter={handleCatalogMouseEnter}
-                      onMouseLeave={handleCatalogMouseLeave}
-                    >
-                      <div className="flex min-h-[450px]">
-                        <div className="w-64 bg-white border-r border-gray-200 rounded-l-lg">
-                          {Object.entries(catalogStructure).map(([category, data]) => {
-                            return (
-                              <button
-                                key={category}
-                                className={`w-full flex items-center px-4 py-3 text-left transition-all duration-200 ${
-                                  activeCategory === category
-                                    ? "bg-gray-100 text-[#ED1B23]"
-                                    : "text-gray-700 hover:bg-gray-50 hover:text-[#ED1B23]"
-                                }`}
-                                onMouseEnter={() => setActiveCategory(category)}
+                    <div className="flex min-h-[450px]">
+                      <div className="w-64 bg-white border-r border-gray-200 rounded-l-lg">
+                        {Object.entries(catalogStructure).map(([category, data]) => {
+                          return (
+                            <button
+                              key={category}
+                              className={`w-full flex items-center px-4 py-3 text-left transition-all duration-200 ${
+                                activeCategory === category
+                                  ? "bg-gray-100 text-[#ED1B23]"
+                                  : "text-gray-700 hover:bg-gray-50 hover:text-[#ED1B23]"
+                              }`}
+                              onMouseEnter={() => setActiveCategory(category)}
+                            >
+                              <span
+                                className={`mr-3 ${activeCategory === category ? "text-[#ED1B23]" : "text-gray-500"}`}
                               >
-                                <span
-                                  className={`mr-3 ${activeCategory === category ? "text-[#ED1B23]" : "text-gray-500"}`}
-                                >
-                                  {categoryIcons[category as keyof typeof categoryIcons]}
-                                </span>
-                                <span className="font-medium text-sm">{category}</span>
-                              </button>
-                            )
-                          })}
-                        </div>
+                                {categoryIcons[category as keyof typeof categoryIcons]}
+                              </span>
+                              <span className="font-medium text-sm">{category}</span>
+                            </button>
+                          )
+                        })}
+                      </div>
 
-                        <div className="flex-1 p-6">
-                          {activeCategory && catalogStructure[activeCategory as keyof typeof catalogStructure] && (
-                            <div>
-                              <div className="grid grid-cols-3 gap-6">
-                                {Object.entries(
-                                  catalogStructure[activeCategory as keyof typeof catalogStructure].subcategories,
-                                ).map(([subcategory, items]) => (
-                                  <div key={subcategory} className="space-y-2">
-                                    <h4 className="font-semibold text-gray-900 text-sm mb-3">{subcategory}</h4>
-                                    <div className="space-y-1">
-                                      {items.length > 0 ? (
-                                        items.map((item, index) => (
-                                          <Link
-                                            key={index}
-                                            href={`/catalog/${activeCategory.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                                            className="block text-xs text-gray-600 hover:text-[#ED1B23] transition-colors duration-200 py-1"
-                                          >
-                                            <span className="leading-tight">{item}</span>
-                                          </Link>
-                                        ))
-                                      ) : (
+                      <div className="flex-1 p-6">
+                        {activeCategory && catalogStructure[activeCategory as keyof typeof catalogStructure] && (
+                          <div>
+                            <div className="grid grid-cols-3 gap-6">
+                              {Object.entries(
+                                catalogStructure[activeCategory as keyof typeof catalogStructure].subcategories,
+                              ).map(([subcategory, items]) => (
+                                <div key={subcategory} className="space-y-2">
+                                  <h4 className="font-semibold text-gray-900 text-sm mb-3">{subcategory}</h4>
+                                  <div className="space-y-1">
+                                    {items.length > 0 ? (
+                                      items.map((item, index) => (
                                         <Link
-                                          href={`/catalog/${activeCategory.toLowerCase()}`}
+                                          key={index}
+                                          href={`/catalog/${activeCategory.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
                                           className="block text-xs text-gray-600 hover:text-[#ED1B23] transition-colors duration-200 py-1"
                                         >
-                                          <span className="leading-tight">Все товары категории</span>
+                                          <span className="leading-tight">{item}</span>
                                         </Link>
-                                      )}
-                                    </div>
+                                      ))
+                                    ) : (
+                                      <Link
+                                        href={`/catalog/${activeCategory.toLowerCase()}`}
+                                        className="block text-xs text-gray-600 hover:text-[#ED1B23] transition-colors duration-200 py-1"
+                                      >
+                                        <span className="leading-tight">Все товары категории</span>
+                                      </Link>
+                                    )}
                                   </div>
-                                ))}
-                              </div>
+                                </div>
+                              ))}
                             </div>
-                          )}
-                        </div>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex-1 relative" ref={searchRef}>
