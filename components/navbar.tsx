@@ -383,7 +383,7 @@ export default function Navbar() {
                   </div>
                 </button>
                 <div
-                  className="relative ml-6"
+                  className="relative ml-12 md:ml-16"
                   ref={catalogButtonRef}
                   onMouseEnter={handleCatalogMouseEnter}
                   onMouseLeave={handleCatalogMouseLeave}
